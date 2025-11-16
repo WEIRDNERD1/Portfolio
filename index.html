@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weird Nerd | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <style>
+       
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html,body{height:100%;}
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .luckiest-guy-regular {
+  font-family: "Luckiest Guy", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+        /* Particles canvas sits behind everything */
+        #particles-js { position: fixed; inset:0; width:100%; height:100%; z-index:-2; }
+
+        /* Floating icons container sits above particles but behind content */
+        .floating-icons {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .float-icon {
+            position: absolute;
+            width: 56px;
+            height: 56px;
+            display:flex;align-items:center;justify-content:center;
+            opacity: 0.9;
+            filter: drop-shadow(0 6px 16px rgba(212,175,55,0.12));
+            transform-origin: center;
+        }
+
+        .float-icon svg { width: 70%; height:70%; display:block; }
+
+        /* animations */
+        @keyframes floatY {
+            0%{ transform: translateY(0) rotate(0deg); }
+            50%{ transform: translateY(-30px) rotate(10deg); }
+            100%{ transform: translateY(0) rotate(0deg); }
+        }
+
+        @keyframes floatSlow {
+            0%{ transform: translateY(0) translateX(0) rotate(0deg); }
+            50%{ transform: translateY(-60px) translateX(20px) rotate(15deg); }
+            100%{ transform: translateY(0) translateX(0) rotate(0deg); }
+        }
+
+        /* Header */
+        header { text-align: center; padding: 80px 20px 40px; position:relative; z-index:2; }
+        h1 { color: rgb(255, 255, 255); font-size: 3.2rem; letter-spacing: 2px; text-shadow: 0 0 2px gold, 0 0 40px #ffcc00; margin-bottom: 15px; }
+        p.bio { font-size: 1.2rem; color: #ddd; max-width: 700px; margin: 0 auto 30px; line-height: 1.8; letter-spacing: 0.5px; }
+
+        .social-links a{ color: gold; margin: 0 15px; text-decoration: none; font-weight: bold; transition: color .25s, text-shadow .25s; }
+        .social-links a:hover{ color:#fff; text-shadow:0 0 10px gold; }
+
+        section{ padding: 80px 10%; position:relative; z-index:2; }
+        h2{ color: rgb(255, 255, 255); font-size:2.3rem; margin-bottom:25px; text-shadow:0 0 10px gold, 0 0 30px #ffcc00; }
+
+        .services{ display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:40px; }
+        .service{ border:2px solid gold; padding:30px; border-radius:15px; background: rgba(255,255,255,0.03); transition: transform .3s, box-shadow .3s; }
+        .service:hover{ transform: translateY(-6px); box-shadow:0 0 40px gold; }
+        .price{ color:#fff; font-weight:700; margin-top:10px; }
+
+        .contact{ text-align:center; margin-top:40px; }
+        .contact a{ color: gold; text-decoration:none; font-weight:700; border:2px solid gold; padding:10px 25px; border-radius:10px; transition: all .25s; box-shadow:0 0 15px rgba(255,215,0,0.25); }
+        .contact a:hover{ background: gold; color:black; box-shadow:0 0 30px gold; }
+
+        #testimonials {
+    padding: 80px 10%;
+    text-align: center;
+}
+
+#testimonials h2 {
+    font-size: 2.3rem;
+    margin-bottom: 35px;
+    text-shadow: 0 0 10px gold, 0 0 30px #ffcc00;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+}
+
+.testimonial {
+    padding: 25px;
+    border: 2px solid gold;
+    background: rgba(255,255,255,0.03);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255,215,0,0.15);
+    transition: 0.3s;
+}
+
+.testimonial:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 35px gold;
+}
+
+.testimonial .quote {
+    color: #ddd;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.testimonial .name {
+    margin-top: 15px;
+    font-weight: 700;
+    color: gold;
+}
+
+.testimonial .gold {
+    color: gold;
+    font-weight: 700;
+    text-shadow: 0 0 6px gold;
+}
+
+#media-showcase {
+    padding: 80px 10%;
+    text-align: center;
+}
+
+.video-grid,
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+video, img {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid gold;
+    background: rgba(255,255,255,0.03);
+    box-shadow: 0 0 20px rgba(255,215,0,0.15);
+}
+
+.more-button a {
+    display: inline-block;
+    color: gold;
+    text-decoration: none;
+    font-weight: 700;
+    border: 2px solid gold;
+    padding: 12px 30px;
+    border-radius: 10px;
+    transition: 0.25s;
+    box-shadow: 0 0 15px rgba(255,215,0,0.25);
+}
+
+.more-button a:hover {
+    background: gold;
+    color: black;
+    box-shadow: 0 0 30px gold;
+}
+
+
+
+        footer{ text-align:center; padding:50px 20px; color:#888; font-size:.9rem; border-top:1px solid rgba(255,215,0,0.2); position:relative; z-index:2; }
+
+        /* responsive tweaks */
+        @media (max-width:700px){ h1{font-size:2.4rem;} p.bio{padding:0 10px;} .float-icon{width:44px;height:44px;} }
+    </style>
+</head>
+<body>
+    <!-- particles canvas (behind everything) -->
+    <div id="particles-js"></div>
+
+    <!-- floating icons layer -->
+    <div class="floating-icons" aria-hidden="true">
+        <!-- sample icons (SVG) - we'll position and animate them with JS -->
+        <div class="float-icon" data-speed="3" id="icon-1" style="left:8%; top:20%;">
+            <!-- cube-like icon -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 7.5L12 2l9 5.5v9L12 22 3 16.5v-9z" stroke="#FFD700" stroke-width="1.2" fill="rgba(212,175,55,0.04)" />
+            </svg>
+        </div>
+
+        <div class="float-icon" data-speed="4" id="icon-2" style="left:78%; top:10%;">
+            <!-- star/spark -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l2.4 5.6L20 10l-4 3 1 6-5-3-5 3 1-6-4-3 5.6-2.4L12 2z" stroke="#FFD700" stroke-width="0.9" fill="rgba(212,175,55,0.06)" />
+            </svg>
+        </div>
+
+        <div class="float-icon" data-speed="2.5" id="icon-3" style="left:55%; top:75%;">
+            <!-- hexagon -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l6 3.5v7L12 22l-6-9.5v-7L12 2z" stroke="#FFD700" stroke-width="1" fill="rgba(212,175,55,0.03)" />
+            </svg>
+        </div>
+
+        <div class="float-icon" data-speed="3.5" id="icon-4" style="left:30%; top:45%;">
+            <!-- rocket-ish -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 16c0 0 2-1 6-5s5-6 5-6 0 3-2 5-3 3-5 5-4 1-4 1z" stroke="#FFD700" stroke-width="0.9" fill="rgba(212,175,55,0.04)" />
+            </svg>
+        </div>
+
+        <div class="float-icon" data-speed="5" id="icon-5" style="left:88%; top:68%;">
+            <!-- small circle accent -->
+            <svg viewBox="0 0 24 24" fill="#FFD700" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" fill="rgba(212,175,55,0.06)" stroke="#FFD700" stroke-width="0.6" />
+            </svg>
+        </div>
+    </div>
+
+    <header>
+        <h1>WEIRD NERD</h1>
+        <p class="bio">Hi, I’m Weird Nerd, a Product Manager, Video Editor, and Web3 Growth Specialist. I help startups and businesses craft powerful stories, build digital presence, and scale communities that drive impact.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/chioma-chukwu-ccf" target="_blank">LinkedIn</a>
+            <a href="https://x.com/Weirdd_Nerdd" target="_blank">X (Twitter)</a>
+            <a href="https://t.me/weirdnerd" target="_blank">Telegram</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=weirdnerd.07@gmail.com">Email</a>
+        </div>
+    </header>
+
+    <section id="services">
+        <h2>Services</h2>
+        <div class="services">
+            <div class="service">
+                <h3>Video Editing</h3>
+                <p>High-quality storytelling for brands, startups, and creators.</p>
+                <p class="price">• 30 sec – $35<br>• 1 min – $70<br>• 3 min – $150<br>• 5 min – $200</p>
+            </div>
+            <div class="service">
+                <h3>Thread Writing</h3>
+                <p>Engaging and data-backed Twitter threads to grow your audience.</p>
+                <p class="price">• Standard thread – $50<br>• Research-based thread – $100</p>
+            </div>
+            <div class="service">
+                <h3>Community Growth Strategy</h3>
+                <p>Custom strategies to grow, engage, and retain loyal Web3 communities.</p>
+                <p class="price">• Strategy only – $500<br>• Strategy + management – $1,500</p>
+            </div>
+            <div class="service">
+                <h3>Product Management</h3>
+                <p>Craft compelling product stories and launch campaigns that convert.</p>
+                <p class="price">• Starter plan – $650<br>• Full product management – $2000</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; text-align: center;">
+            <p style="color:#ccc; font-size:1rem; line-height:1.8;">Rush work: <strong>+$150</strong> | Extra revisions: <strong>+$15</strong> each</p>
+        </div>
+    </section>
+
+    <section id="testimonials">
+    <h2>What People Say</h2>
+
+    <div class="testimonials-grid">
+        <div class="testimonial">
+            <p class="quote">“Weird Nerd transformed our entire outreach storytelling. Engagement increased by <span class="gold">320%</span> in 6 weeks.”</p>
+            <p class="name">— Dr. Vanessa, Founder</p>
+        </div>
+
+        <div class="testimonial">
+            <p class="quote">“Our demo-to-signup rate jumped from <span class="gold">11% to 42%</span> after Weird Nerd’s product video overhaul.”</p>
+            <p class="name">— Michael, Product Lead</p>
+        </div>
+
+        <div class="testimonial">
+            <p class="quote">“Our brand saves increased by <span class="gold">570%</span>. Her storytelling is different.”</p>
+            <p class="name">— Daniel, Creative Director</p>
+        </div>
+
+        <div class="testimonial">
+            <p class="quote">“She delivered in 48 hours and helped us get <span class="gold">86 new sign-ups</span> instantly.”</p>
+            <p class="name">— Samuel, Founder.</p>
+        </div>
+    </div>
+</section>
+
+<section id="media-showcase">
+    <h2>Project Showcase</h2>
+
+  <div class="video-grid">
+    <video controls preload="auto" width="100%">
+        <source src="Elroi-won.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <video controls preload="auto" width="100%">
+        <source src="elroi-will-win.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+    <div class="image-grid">
+        <img src="G4WnLKVWEAAOb9l.jfif">
+        <img src="G5RQfQxW0AAZcTV.jfif">
+        <img src="14.11.2025_21.25.54_REC.png">
+    </div>
+
+    <div class="more-button">
+        <a href="https://linktr.ee/WeirdNerd" target="_blank">See More</a>
+    </div>
+</section>
+
+
+    <section class="contact">
+        <h2>Let’s Work Together</h2>
+        <p style="color:#ccc; margin-bottom:20px;">Ready to elevate your project? Let’s make it happen.</p>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=weirdnerd.07@gmail.com">Get in Touch</a>
+    </section>
+
+
+    <footer>
+        © 2025 Weird Nerd. All rights reserved.
+    </footer>
+
+    <!-- particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 70 },
+                color: { value: '#FFD700' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.7 },
+                size: { value: 3 },
+                line_linked: { enable: true, distance: 160, color: '#FFD700', opacity: 0.35, width: 1 },
+                move: { enable: true, speed: 1.6 }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+
+    <!-- Floating icons movement script -->
+    <script>
+        const icons = document.querySelectorAll('.float-icon');
+
+        function randomRange(min, max){ return Math.random() * (max - min) + min; }
+
+        // Give each icon a unique slow animation duration and slight horizontal sway
+        icons.forEach((el, idx) => {
+            const speed = parseFloat(el.getAttribute('data-speed')) || 3;
+            const dur = randomRange(6, 14) / speed; // slower for larger speed value
+            const delay = randomRange(0, 3);
+            el.style.animation = `floatY ${dur}s ease-in-out ${delay}s infinite`;
+
+            // add small CSS transform-sway via JS to create unique paths
+            const sway = randomRange(-30, 30);
+            el.style.transform = `translateY(0px) translateX(${sway}px)`;
+        });
+
+        // Make icons gently drift across screen using requestAnimationFrame
+        const driftData = [];
+        icons.forEach((el,i)=>{
+            driftData[i] = {
+                el,
+                x: parseFloat(el.style.left) || 0,
+                y: parseFloat(el.style.top) || 0,
+                vx: randomRange(-0.02,0.02),
+                vy: randomRange(-0.03,0.03)
+            };
+        });
+
+        function drift(){
+            driftData.forEach(d=>{
+                const rect = d.el.getBoundingClientRect();
+                // compute in px from percent top/left if set as percent
+                // parse style.left which might be like '8%'
+                const left = d.el.style.left;
+                const top = d.el.style.top;
+                let leftPx = 0, topPx = 0;
+                if(left.includes('%')) leftPx = window.innerWidth * (parseFloat(left)/100);
+                else leftPx = parseFloat(left);
+                if(top.includes('%')) topPx = window.innerHeight * (parseFloat(top)/100);
+                else topPx = parseFloat(top);
+
+                leftPx += d.vx;
+                topPx += d.vy;
+
+                // wrap around if out of bounds
+                if(leftPx < -60) leftPx = window.innerWidth + 60;
+                if(leftPx > window.innerWidth + 60) leftPx = -60;
+                if(topPx < -60) topPx = window.innerHeight + 60;
+                if(topPx > window.innerHeight + 60) topPx = -60;
+
+                // set back as percent for responsiveness
+                d.el.style.left = (leftPx / window.innerWidth * 100) + '%';
+                d.el.style.top = (topPx / window.innerHeight * 100) + '%';
+            });
+            requestAnimationFrame(drift);
+        }
+        requestAnimationFrame(drift);
+
+        // Make icons respond a bit to mouse movement (parallax)
+        window.addEventListener('mousemove', (e)=>{
+            const cx = e.clientX / window.innerWidth - 0.5;
+            const cy = e.clientY / window.innerHeight - 0.5;
+            icons.forEach((el, i)=>{
+                const depth = (parseFloat(el.getAttribute('data-speed'))||3);
+                const moveX = cx * (20/depth);
+                const moveY = cy * (20/depth);
+                el.style.transform = `translateY(0px) translateX(${moveX}px) translateY(${moveY}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
